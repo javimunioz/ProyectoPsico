@@ -1,0 +1,1 @@
+typeSearchIndex = [{"p":"Modelo","l":"Administrador"},{"l":"All Classes and Interfaces","u":"allclasses-index.html"},{"p":"Modelo","l":"Cita"},{"p":"Modelo","l":"Cliente"},{"p":"DAO","l":"DaoCitas"},{"p":"DAO","l":"DaoPsic"},{"p":"DAO","l":"DaoUsuario"},{"p":"DAO","l":"DBconexion"},{"p":"Modelo","l":"Psicologo"},{"p":"Modelo","l":"Usuario"}];updateSearchResults();
