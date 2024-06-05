@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="registro.css">
+    
+</head>
+<body>
+    <header>
+        <h1>Portal de Psicología</h1>
+        <nav>
+            <a href="index.html">Inicio</a>
+            <a href="Registro.html">Registro</a>
+            <a href="#">Contacto</a>
+            <a href="#">Acerca de</a>
+        </nav>
+    </header>
+
+    <div class="container">
+        <form action="Registro" method="post" enctype="multipart/form-data">
+            <ul>
+                <li>Nombre de usuario:</li>
+                <input type="text" name="nombreusuario" required>
+                <li>Contraseña:</li>
+                <input type="password" name="contrasena" required>
+                <li>DNI:</li>
+                <input type="text" name="dni" required>
+                <li>Correo:</li>
+                <input type="email" name="correo" required>
+                <li>Teléfono:</li>
+                <input type="text" name="telefono" required>
+                <li>Nombre:</li>
+                <input type="text" name="nombre" required>
+                <li>Apellidos:</li>
+                <input type="text" name="apellidos" required>
+                <li>Selecciona tu foto:</li>
+                <input type="file" name="foto" placeholder="Selecciona tu foto de perfil" required>
+                <li>Elige una opción:</li>
+                <select name="idrol" required>
+                    <option value="psicologo">Registrarse como psicólogo</option>
+                    <option value="cliente">Registrarse como cliente</option>
+                </select>
+                <li>
+                    <input type="submit" value="Registrarse">
+                </li>
+            </ul>
+        </form>
+    </div>
+
+    <footer>
+        <nav>
+            <a href="#">Política de Privacidad</a>
+            <a href="#">Términos de Servicio</a>
+            <a href="#">Ayuda</a>
+        </nav>
+        <p>&copy; 2024 Psicología y Gestión de Citas. Todos los derechos reservados.</p>
+    </footer>
+</body>
+</html>

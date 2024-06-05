@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="adminlogueado.css">
+    <script>
+
+        function llamada(){
+                fetch('gestionusuarios?op=1')
+                .then(response => response.json())
+                .then(data => pintar(data))
+            }
+    
+            
+            function pintar(resultados){
+                
+                
+                let html = "<table border=1>";
+                    
+                for(let i=0;i<resultados.length;i++){
+                    
+                    html += "<tr>";
+                    html += "<td><img src='"+resultados[i].foto+"'></td>";
+                    html += "<td>"+resultados[i].nombre+"</td>";
+                    html += "<td>"+resultados[i].correo+"</td>";
+                    html += "<td>"+resultados[i].idrol+"</td>";
+                    html += "<td><button onclick='borrarUsuario(" + resultados[i].idusuario + ", "+1+" )'>Borrar</button></td>";
+                    html += "</tr>";
+                }	
+                
+                html += "</table>";
+                
+            document.getElementById("listado").innerHTML = html;
+                
+            }
+            function borrarUsuario(idusuario,op){
+                if (confirm("¿Estás seguro?")){
+                    fetch('gestionusuarios?idusuario='+idusuario+'&op=2') 
+                    .then(response=> response.json())
+                    .then(data=>pintar(data))
+                    }
+                }
+
+            
+            
+            
+            
+        window.onload = function(){
+            
+            
+            llamada();
+            
+            
+        }	
+    
+    </script>
+</head>
+<body>
+    <header>
+        <h1>Portal de Psicología</h1>
+        <nav>
+            <a href="index.html">Inicio</a>
+            <a href="#">Servicios</a>
+            <a href="#">Contacto</a>
+            <a href="#">Acerca de</a>
+        </nav>
+    </header>
+
+    <div class="container">
+        <h1>Listado de usuarios</h1>
+        <div id="listado"></div>
+    </div>
+
+    <footer>
+        <nav>
+            <a href="#">Política de Privacidad</a>
+            <a href="#">Términos de Servicio</a>
+            <a href="#">Ayuda</a>
+        </nav>
+        <p>&copy; 2024 Psicología y Gestión de Citas. Todos los derechos reservados.</p>
+    </footer>
+    
+</body>
+</html>
