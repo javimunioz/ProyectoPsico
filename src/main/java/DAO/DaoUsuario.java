@@ -22,7 +22,10 @@ public class DaoUsuario {
 
 //dar de alta usuarios e insertarlo en la base de datos
 	/**
-	 * metodo para insertar un usuario en la base de datos (aplicado en el metodo registrar de esta misma clase)y que inserta ese mismo usuario en la tabla cliente o psicologo en funciond e su idrol
+	 * metodo para insertar un usuario en la base de datos (aplicado en el metodo
+	 * registrar de esta misma clase)y que inserta ese mismo usuario en la tabla
+	 * cliente o psicologo en funciond e su idrol
+	 * 
 	 * @param u se envia un objeto usuario recogido en el servlet
 	 * @throws SQLException
 	 */
@@ -67,16 +70,28 @@ public class DaoUsuario {
 		ps.close();
 
 	}
-/**
- * metodo para borrar usuarios
- * @param idusuario necesita el parametro del idusuario y borra en cascada
- * @throws SQLException
- */
-	public void borrar(int idusuario) throws SQLException {
 
+	/**
+	 * metodo para borrar usuarios
+	 * 
+	 * @param idusuario necesita el parametro del idusuario y borra en cascada
+	 * @throws SQLException
+	 */
+	public void borrar(int idusuario) throws SQLException {
+		// busca el idcliente para borrar sus citas
+		DaoCitas dao = new DaoCitas();
+		int idcliente = dao.obteneridcliente(idusuario);
+		String sql1 = "DELETE FROM cita WHERE idcliente=?";
+		PreparedStatement ps1 = con.prepareStatement(sql1);
+		ps1.setInt(1, idcliente);
+
+		int filas1 = ps1.executeUpdate();
+		ps1.close();
+		// borrar su usuario
 		String sql = "DELETE FROM usuarios WHERE idusuario=?";
 		PreparedStatement ps = con.prepareStatement(sql);
 		ps.setInt(1, idusuario);
+
 		int filas = ps.executeUpdate();
 		ps.close();
 	}
@@ -88,7 +103,7 @@ public class DaoUsuario {
 	 * @throws SQLException
 	 */
 	public void modificarperfil(Usuario u) throws SQLException {
-	
+
 		String sql = "UPDATE usuarios SET nombreusuario=?,correo=?,telefono=?,contrasena=? WHERE idusuario=?";
 		PreparedStatement ps = con.prepareStatement(sql);
 
@@ -102,8 +117,6 @@ public class DaoUsuario {
 		ps.close();
 	}
 
-
-
 	public String listarJoson() throws SQLException {
 		String txtJSON = "";
 		Gson gson = new Gson();
@@ -111,11 +124,15 @@ public class DaoUsuario {
 		return txtJSON;
 
 	}
-/**
- * metodo para registrar que comprueba si hay mas usuarios con ese nombre o correo y después si no hay ejecuta el insertar de esta misma clase
- * @param u recoge los parametros nombreusuario y correo del objeto usurio recibido por el servlet
- * @throws SQLException
- */
+
+	/**
+	 * metodo para registrar que comprueba si hay mas usuarios con ese nombre o
+	 * correo y después si no hay ejecuta el insertar de esta misma clase
+	 * 
+	 * @param u recoge los parametros nombreusuario y correo del objeto usurio
+	 *          recibido por el servlet
+	 * @throws SQLException
+	 */
 	public void registrar(Usuario u) throws SQLException {
 
 		System.out.println(u);
@@ -141,13 +158,18 @@ public class DaoUsuario {
 		}
 
 	}
-/**
- * metodo para el login 
- * @param u recibe un objeto usuario y una contrasena y ejecuta un string con una query para buscarlo en la base de datos, si lo encuentra devuelve todos los campos de ese usuario en la base de datos
- * @param contrasena
- * @return devuelve los campos de la base de datos de ese id
- * @throws SQLException
- */
+
+	/**
+	 * metodo para el login
+	 * 
+	 * @param u          recibe un objeto usuario y una contrasena y ejecuta un
+	 *                   string con una query para buscarlo en la base de datos, si
+	 *                   lo encuentra devuelve todos los campos de ese usuario en la
+	 *                   base de datos
+	 * @param contrasena
+	 * @return devuelve los campos de la base de datos de ese id
+	 * @throws SQLException
+	 */
 	public Usuario login(Usuario u, String contrasena) throws SQLException {
 
 		String sql = "SELECT * FROM usuarios WHERE nombreusuario=? AND contrasena =?";
@@ -165,12 +187,14 @@ public class DaoUsuario {
 		return us;
 
 	}
-/**
- * metodo para obtener por id un usuario
- * @param idusuario recibe el id del usuario
- * @return devulve los datos del usuario
- * @throws SQLException
- */
+
+	/**
+	 * metodo para obtener por id un usuario
+	 * 
+	 * @param idusuario recibe el id del usuario
+	 * @return devulve los datos del usuario
+	 * @throws SQLException
+	 */
 	public Usuario obtenerPorID(int idusuario) throws SQLException {
 
 		String sql = "SELECT * FROM usuarios WHERE id=?";
@@ -186,11 +210,13 @@ public class DaoUsuario {
 
 		return u;
 	}
-/**
- * metodo para listar todos los usuarios
- * @return devuelve una listad e todos los usuario registrados
- * @throws SQLException
- */
+
+	/**
+	 * metodo para listar todos los usuarios
+	 * 
+	 * @return devuelve una listad e todos los usuario registrados
+	 * @throws SQLException
+	 */
 	public ArrayList<Usuario> listar() throws SQLException {
 
 		String sql = "SELECT * FROM usuarios ";
@@ -209,12 +235,14 @@ public class DaoUsuario {
 		}
 		return ls;
 	}
-/**
- * metodo para crear una lista de todos los usuarios segun su idrol
- * @param idrol recibe el idrol para buscar ese mismo idrol en la base de datos
- * @return devuleve la lista de usuario con ese idrol
- * @throws SQLException
- */
+
+	/**
+	 * metodo para crear una lista de todos los usuarios segun su idrol
+	 * 
+	 * @param idrol recibe el idrol para buscar ese mismo idrol en la base de datos
+	 * @return devuleve la lista de usuario con ese idrol
+	 * @throws SQLException
+	 */
 	public ArrayList<Usuario> listar(String idrol) throws SQLException {
 
 		String sql = "SELECT * FROM usuarios WHERE idrol=? ";

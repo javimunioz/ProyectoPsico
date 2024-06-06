@@ -33,6 +33,15 @@ public class DaoCitas {
 		int filas = ps.executeUpdate();
 		ps.close();
 	}
+	// metodo para borrar la cita
+	public void borrarcita(int idcliente) throws SQLException {
+		
+		String sql = "DELETE FROM cita WHERE idcliente=?";
+		PreparedStatement ps = con.prepareStatement(sql);
+		ps.setInt(1, idcliente);
+		int filas = ps.executeUpdate();
+		ps.close();
+	}
 
 	
 	/**
